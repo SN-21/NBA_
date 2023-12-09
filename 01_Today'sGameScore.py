@@ -12,6 +12,7 @@ scoreboard = game_score["scoreboard"]
 game = scoreboard["games"]
 game_date = scoreboard["gameDate"]
 
+
 # Boxscoreのdataframe作成関数定義
 def Boxscore_DataFrame_Transform(
     df,
@@ -71,7 +72,7 @@ def Inactive_Player(df):
     except KeyError:
         df_loc = df_query.loc[:, ["name"]]
     # なぜか、notPlayingReason がない試合があるので、try-except で対応
-    
+
     index_name = df_query.loc[:, "name"]
     df_set_axis = df_loc.set_axis(index_name)
     df_drop = df_set_axis.drop(["name"], axis=1)
@@ -91,14 +92,6 @@ def Usage_dataframe_transform(df, teamname, drop_columns):
 
     return df_fillna_usage
 
-
-# gameid_list = []
-
-# for i in range(len(game)):
-#     game_id = game[i]["gameId"]
-#     gameid_list.append(game_id)
-
-# ここはわざわざ　for文でgameidのリストを作らなくても下のfor文でgameidを毎回取得すれば不要だった
 
 # 最初の行の表示を中央にする為に、３カラム化
 # ３分割にして 3,3,2 の比率にすれば row2_2 の 3 が中央になる
