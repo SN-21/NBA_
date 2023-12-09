@@ -4,6 +4,17 @@ import pandas as pd
 from nba_api.stats.endpoints import leagueleaders
 from nba_api.stats.library.parameters import PerModeDetailed
 
+row1_1, row1_2, row1_3 = st.columns((3, 2, 3))
+
+with row1_1:
+    st.title(" ")
+
+with row1_2:
+    st.title("__Leader Board__")
+
+with row1_3:
+    st.title(" ")
+
 leaders_per_game = leagueleaders.LeagueLeaders(per_mode48="PerGame")
 df_leaders_per_game = leaders_per_game.league_leaders.get_data_frame()
 
