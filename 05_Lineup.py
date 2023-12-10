@@ -3,6 +3,17 @@ import pandas as pd
 
 from nba_api.stats.endpoints import leaguelineupviz
 
+row1_1, row1_2, row1_3 = st.columns((3, 2, 3))
+
+with row1_1:
+    st.title(" ")
+
+with row1_2:
+    st.title("__Lineup__")
+
+with row1_3:
+    st.title(" ")
+
 
 def Lineup_DataFrame_Transform(df, rename_columns, format_columns):
     df_lineup_rename = df.rename(columns=rename_columns)
