@@ -4,6 +4,17 @@ import pandas as pd
 from st_aggrid import AgGrid
 from nba_api.stats.endpoints import leaguestandingsv3
 
+row1_1, row1_2, row1_3 = st.columns((3, 2, 3))
+
+with row1_1:
+    st.title(" ")
+
+with row1_2:
+    st.title("__STANDING__")
+
+with row1_3:
+    st.title(" ")
+
 standing_v3 = leaguestandingsv3.LeagueStandingsV3()
 df_st = standing_v3.standings.get_data_frame()
 

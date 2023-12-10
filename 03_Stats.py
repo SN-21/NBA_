@@ -4,6 +4,17 @@ import pandas as pd
 from nba_api.stats.endpoints import leaguedashteamstats
 from nba_api.stats.library.parameters import MeasureTypeDetailedDefense
 
+row1_1, row1_2, row1_3 = st.columns((3, 2, 3))
+
+with row1_1:
+    st.title(" ")
+
+with row1_2:
+    st.title("__TEAM STATS__")
+
+with row1_3:
+    st.title(" ")
+
 
 def DfIndexNameToTeamname(df):
     df_new_index = df.set_axis(
@@ -48,7 +59,6 @@ def DfDropUnnecessaryColumns(df):
     # df_drop = df.drop(["TEAM_ID", "MIN", "TEAM_NAME", "CFID", "CFPARAMS"], axis=1)
     # "CFID", "CFPARAMS" のカラムは、APIの仕様からなくなっていたので、削除
     df_drop = df.drop(["TEAM_ID", "MIN", "TEAM_NAME"], axis=1)
-    
 
     return df_drop
 

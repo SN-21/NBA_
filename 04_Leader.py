@@ -10,7 +10,7 @@ with row1_1:
     st.title(" ")
 
 with row1_2:
-    st.title("__Leader__")
+    st.title("__LEADER__")
 
 with row1_3:
     st.title(" ")
