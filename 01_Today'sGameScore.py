@@ -3,6 +3,7 @@ import pandas as pd
 
 from nba_api.live.nba.endpoints import boxscore, scoreboard
 from nba_api.stats.endpoints import boxscoreusagev2
+from nba_api.stats.endpoints import playbyplay
 
 
 games = scoreboard.ScoreBoard()
@@ -491,6 +492,29 @@ for i in range(len(game)):
         df=df_boxscore_usage, teamname=homeTeam, drop_columns=usage_drop_columns
     )
 
+    pbp = playbyplay.PlayByPlay(game_id=game_id)
+    pbp_df = pbp.play_by_play.get_data_frame()
+    pbp_df = pbp_df.drop(
+        [
+            "GAME_ID",
+            "EVENTNUM",
+            "EVENTMSGTYPE",
+            "EVENTMSGACTIONTYPE",
+            "NEUTRALDESCRIPTION",
+            "WCTIMESTRING",
+            "SCOREMARGIN",
+        ],
+        axis=1,
+    )
+    pbp_df = pbp_df.rename(
+        columns={
+            "PCTIMESTRING": "TIME",
+            "HOMEDESCRIPTION": "HOME",
+            "VISITORDESCRIPTION": "AWAY",
+        }
+    )
+    pbp_df = pbp_df.set_index("TIME")
+
     row3_spacer1, row3_1, row3_2, row3_3, row3_spacer2 = st.columns(
         (1.5, 2, 1.5, 2, 0.5)
     )
@@ -525,7 +549,7 @@ for i in range(len(game)):
         f"{leader_away_player} ({awayTeam})  {leader_away_point} PTS  {leader_away_rebounds} REB  {leader_away_assist} AST     {leader_home_player} ({homeTeam})  {leader_home_point} PTS  {leader_home_rebounds} REB  {leader_home_assist} AST"
     )
 
-    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(
+    tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(
         [
             "Game Information",
             "Inactive Player",
@@ -533,6 +557,7 @@ for i in range(len(game)):
             "Game Chart",
             "Box Score",
             "Usage",
+            "Play by Play",
         ]
     )
 
@@ -565,5 +590,8 @@ for i in range(len(game)):
         st.dataframe(df_away_usage)
         st.text(f"{homeTeam_full_name}")
         st.dataframe(df_home_usage)
+
+    with tab7:
+        st.dataframe(pbp_df)
 
     st.markdown("---")
