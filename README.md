@@ -55,8 +55,16 @@ and tab's show
 
 ## Standing
 
+- It's standing of Eastern Conference and Western Confrence
+
 ## Stats
+
+- It's team stats that adovenced , scoring and defense
 
 ## Leader
 
+- It's League stats leader per game and total
+
 ## Lineup
+
+- It's league best lineup minutes 50minutes
