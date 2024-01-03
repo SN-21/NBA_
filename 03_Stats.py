@@ -3,6 +3,7 @@ import pandas as pd
 
 from nba_api.stats.endpoints import leaguedashteamstats
 from nba_api.stats.library.parameters import MeasureTypeDetailedDefense
+from nba_api.stats.endpoints import leaguedashteamshotlocations
 
 row1_1, row1_2, row1_3 = st.columns((3, 2, 3))
 
@@ -151,8 +152,52 @@ df_defense_style = df_defense_new_index_drop.style.format(
     }
 )
 
+shot_location = leaguedashteamshotlocations.LeagueDashTeamShotLocations (last_n_games= 82)
+df = shot_location.shot_locations.get_data_frame ()
 
-tab1, tab2, tab3 = st.tabs(["Adovenced Stats", "Scoring Stats", "Defence Stats"])
+df.columns = ['_'.join(col).strip() for col in df.columns.values]
+
+new_index = [
+            "Atlanta Hawks",
+            "Boston Celtics",
+            "Brooklyn Nets",
+            "Charlotte Hornets",
+            "Chicago Bulls",
+            "Cleveland Cavaliers",
+            "Dallas Mavericks",
+            "Denver Nuggets",
+            "Detroit Pistons",
+            "Golden State Warriors",
+            "Houston Rockets",
+            "Indiana Pacers",
+            "LA Clippers",
+            "Los Angeles Lakers",
+            "Memphis Grizzlies",
+            "Miami Heat",
+            "Milwaukee Bucks",
+            "Minnesota Timberwolves",
+            "New Orleans Pelicans",
+            "New York Knicks",
+            "Oklahoma City Thunder",
+            "Orlando Magic",
+            "Philadelphia 76ers",
+            "Phoenix Suns",
+            "Portland Trail Blazers",
+            "Sacramento Kings",
+            "San Antonio Spurs",
+            "Toronto Raptors",
+            "Utah Jazz",
+            "Washington Wizards",
+        ]
+
+df.index = new_index
+
+df_shot_location_drop = df.drop(['_TEAM_ID', '_TEAM_NAME'], axis=1)
+
+
+
+
+tab1, tab2, tab3, tab4 = st.tabs(["Adovenced Stats", "Scoring Stats", "Defence Stats", "Shot Location"])
 with tab1:
     st.dataframe(df_adovenced_fin, use_container_width=True)
 
@@ -161,3 +206,6 @@ with tab2:
 
 with tab3:
     st.dataframe(df_defense_style, use_container_width=True)
+
+with tab4:
+    st.dataframe(df_shot_location_drop, use_container_width=True)
